@@ -1,8 +1,14 @@
 package org.bigjava.action;
 
+import java.util.List;
+import java.util.Map;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.RequestAware;
 import org.bigjava.domain.PageBean;
 import org.bigjava.domain.User;
 import org.bigjava.service.User_Service;
+import org.bigjava.yanzheng.Helloword2;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -13,10 +19,10 @@ import com.opensymphony.xwork2.ModelDriven;
  * @author zy
  *
  */
-public class User_Action extends ActionSupport implements ModelDriven<User> {
-	public String account;
-	public String password;
-	
+public class User_Action extends ActionSupport implements ModelDriven<User>,RequestAware {
+	private String account;
+	private String password;
+	private Map<String ,Object> request;
     public String getAccount() {
 		return account;
 	}
@@ -63,7 +69,7 @@ public class User_Action extends ActionSupport implements ModelDriven<User> {
 	}
 	//查询
 	public String findAll(){
-		PageBean<User> pageBEan = userService.findByPage(currPage);
+		PageBean<User> pageBEan = userService.findByPage(currPage);	
 		//将pagebean存入到值栈中
 		ActionContext.getContext().getValueStack().push(pageBEan);
 		return "findAll";
@@ -114,19 +120,7 @@ public class User_Action extends ActionSupport implements ModelDriven<User> {
  	public String xiuUI(){
  		return "xiuUI";
  	}
-   //忘记密码修改
-   public String xiu() {
-	   System.out.println("xiu方法执行了");
-	User xiuuser = userService.xiu(user);
-   	if(xiuuser  == null) {
-   		this.addActionError("身份信息不匹配");
-   		return "xiuUI";
-   	}else {
-   		ActionContext.getContext().getSession().put("xiuuser", xiuuser);
-   		
-   		return "xiuSuccess";
-   	} 
-   }
+   
    //跳转注册页面的方法
    public String  zhuUI() {
 	   return "zhuUI";
@@ -139,6 +133,7 @@ public class User_Action extends ActionSupport implements ModelDriven<User> {
 		   this.addActionError("该账号已被注册");
 		   return "zhuUI";
 	   }
+	   
 	   return "error";
    }
   //个人修改密码
@@ -146,5 +141,42 @@ public class User_Action extends ActionSupport implements ModelDriven<User> {
 	  user = userService.findById(user.getUser_id());
 	  return "xiupass";
   }
-   
+  //退出登录
+  public String tui() {
+	  Map<String, Object> session = ActionContext.getContext().getSession(); 	  
+	  session.remove("existuser"); //删除登录时存的session
+		return "error"; 
+  }
+     //模糊搜索
+    public String mohu() {
+	 List<User> mohuuser = userService.mohucha(user);
+	 PageBean<User> pageBEan = userService.findByPage(currPage);	
+		//将pagebean存入到值栈中
+		ActionContext.getContext().getValueStack().push(pageBEan);
+	 request.put("list",mohuuser); 
+	 return "findAll";
+ }
+    public void setRequest(Map<String, Object> request) {
+	this.request=request;
 }
+
+    
+    public String fasong() {
+    	System.out.println("fasong方法执行了");
+  	   User fasonguser = (userService).fasong(user);
+  	   if(fasonguser == null ) {
+  		   this.addActionError("该手机号没有注册");
+  		   return "xiuUI";
+  	   }
+  	 this.addActionError("发送送成功60秒内有效请注意查收");
+  	System.out.println(user.getPhone());
+  
+	//Helloword2.getCode(user.getPhone());
+  	
+  	   return "xiuUI";
+     }
+	
+	 
+}
+
+

@@ -23,11 +23,13 @@ public interface User_Service {
 
 	User login(User user);
 
-	User xiu(User user);
+	
 
 	User zhuce(User user);
 
-	
+	List<User> mohucha(User user);
+
+	User fasong(User user);
 
 	
 }

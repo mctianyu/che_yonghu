@@ -21,11 +21,15 @@ public interface User_Dao {
 
 	User findByAccountAndPassword(User user);
 
-	User findByxiuAndPassword(User user);
+	
 
 	User save(User user);
 
 	User findByZhuCe(User user);
+
+	List<User> findBymohuAndPassword(User user);
+
+	User findByFaSong(User user);
 
 	
 

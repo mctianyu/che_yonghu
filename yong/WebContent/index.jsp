@@ -12,6 +12,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>登陆</title>
 <script type="text/javascript" src="jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
+
+if (top.location !== self.location) {
+top.location=self.location;//注销登录跳回登录页面
+} 
+
 function checkusrn() { 
 	 var check = false; 
 	 var username = document.getElementById("username").value; 

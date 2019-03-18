@@ -13,11 +13,13 @@
     <result name="editSuccess">/edituser.jsp</result>
     <result name="edit_gerenSuccess">/gaiuser.jsp</result>
      <result name="update_gerenSuccess" type="redirectAction">user_findAll.action</result>
-     <result name="xiuUI">/wang.jsp</result>
+     
      <result name="xiuSuccess">/xiupassword.jsp</result>
     
      <result name="zhuUI">/zhuce.jsp</result>
      <result name="xiupass">/xiupassword.jsp</result>
+     <result name="xiuUI">/wang.jsp</result>
+     
      
     </action>  
  

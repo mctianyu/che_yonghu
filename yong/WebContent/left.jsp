@@ -38,6 +38,6 @@ $(document).ready(function(){
 <div id="panel"><a href="${ pageContext.request.contextPath }/user_edit_geren.action?user_id=<s:property value="#session.existuser.user_id"/>" target="right">修改个人信息 </a><br/>
 <a href="${ pageContext.request.contextPath }/user_xiupass.action?user_id=<s:property value="#session.existuser.user_id"/>" target="right">修改密码</a>
 </div>
-
+<a href="${ pageContext.request.contextPath }/user_tui.action">退出登录</a>
 </body>
 </html>

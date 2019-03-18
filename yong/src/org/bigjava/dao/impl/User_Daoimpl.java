@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bigjava.dao.User_Dao;
 import org.bigjava.domain.User;
+import org.bigjava.yanzheng.Helloword2;
 import org.hibernate.criterion.DetachedCriteria;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
@@ -72,21 +73,11 @@ public class User_Daoimpl extends HibernateDaoSupport implements User_Dao{
 	public void delete(User user) {
 	 this.getHibernateTemplate().delete(user);	
 	}
-	//修改密码验证
-	@Override
-	public User findByxiuAndPassword(User user) {
-		String hql="from User where (idCard = ? and phone = ?) and (drive = ? and email = ?) ";
-		List<User> list=this.getHibernateTemplate().find(hql, user.getIdCard(), user.getPhone(),user.getDrive(), user.getEmail());
-		if(list.size() >0) {
-			
-			return list.get(0);
-		}
-		return null;
-	}
+	
 	//注册方法
 	@Override
 	public User findByZhuCe(User user) {
-		String hql="from User where account = ? ";
+		String hql="from User where account = ?" ;
 		List<User> list=this.getHibernateTemplate().find(hql, user.getAccount());
 		if(list.size() >0) {
 			
@@ -95,5 +86,24 @@ public class User_Daoimpl extends HibernateDaoSupport implements User_Dao{
 		this.getHibernateTemplate().save(user);
 		return null;
 	}
+	public List<User> findBymohuAndPassword(User user) {
+		String name=user.getName();
+		
+		List<User> list=this.getHibernateTemplate().find("from User u where u.name like ?", "%"+name+"%");
+			
+		return list;
+	}
+	@Override
+	public User findByFaSong(User user) {
+		String hql="from User where phone = ? ";
+		List<User> list=this.getHibernateTemplate().find(hql, user.getPhone());
+		if(list.size() >0) {
+			
+			return list.get(0);
+		}
+		
+		return null;	
+	}
+	
 	
 	}

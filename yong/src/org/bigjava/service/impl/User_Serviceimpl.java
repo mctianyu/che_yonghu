@@ -1,7 +1,6 @@
 package org.bigjava.service.impl;
 
 import java.util.List;
-
 import org.bigjava.dao.User_Dao;
 import org.bigjava.domain.PageBean;
 import org.bigjava.domain.User;
@@ -85,14 +84,7 @@ public class User_Serviceimpl implements User_Service{
 	public void delete(User user) {
 		userDao.delete(user);
 	}
-	@Override
-	/**
-	 * 忘记密码的方法
-	 */
-	public User xiu(User user) {	
-	 User xiuuser = userDao.findByxiuAndPassword(user);
-		return xiuuser;
-	}
+	
 	/**
 	 * 注册账号的方法
 	 */
@@ -101,6 +93,21 @@ public class User_Serviceimpl implements User_Service{
 		 User zhuceuser = userDao.findByZhuCe(user);
 			return zhuceuser;
 	}
+	/**
+	 * 模糊查询的方法
+	 */
+	@Override
+	public List<User> mohucha(User user) {
+		
+		return userDao.findBymohuAndPassword(user);
+	}
+	@Override
+	public User fasong(User user) {
+		
+		User fasonguser = userDao.findByFaSong(user);
+		return fasonguser;
+	}
+	
 
 	
 
